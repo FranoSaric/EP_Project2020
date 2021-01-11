@@ -36,6 +36,7 @@ class MainActivity : AppCompatActivity() {
     private var txt_result: TextView? = null
     private var surfaceView: SurfaceView? = null
     private var qrEader: QREader? = null
+    private var sendingData: Boolean = false;
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -60,7 +61,10 @@ class MainActivity : AppCompatActivity() {
 
     //POST
     private fun postMethod() {
-        rawJSON()
+        if (!sendingData) {
+            sendingData = true;
+            rawJSON();
+        }
     }
 
     private fun rawJSON() {
@@ -111,6 +115,7 @@ class MainActivity : AppCompatActivity() {
                     Log.e("RETROFIT_ERROR", response.code().toString())
 
                 }
+                sendingData = false;
             }
         }
     }
